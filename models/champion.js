@@ -5,10 +5,6 @@ const ChampSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        required: true
-    },
     imageUrl: {
         type: String,
     },
@@ -18,4 +14,4 @@ const ChampSchema = new mongoose.Schema({
     }]
 });
 
-module.exports = mongoose.model('Champion', ChampSchema)
+module.exports = mongoose.model('Champion', ChampSchema);
