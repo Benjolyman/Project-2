@@ -1,13 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Create a Build</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
-
 </head>
+
 <body>
-    
+    <h1>Create a build</h1>
+    <a href="/champions/<%= champions._id %>">Back</a>
+    <form action="/champions/<%= champions._id %>?_method=PUT" method="post">
+        <label>
+            Name:
+            <input name="name" required>
+        </label>
+        <div id="role">
+            <label>
+                Role:
+                <select name="role">
+                    <option value="Top">Top</option>
+                    <option value="Jungle">Jungle</option>
+                    <option value="Middle">Middle</option>
+                    <option value="Bottom">Bottom</option>
+                    <option value="Support">Support</option>
+                </select>
+            </label>
+        </div>
+        <div class="starter-item">
+            <label>
+                Starter item
+                <select name="starter-item">
+                    <option value="">Select a starter item</option>
+                    <% starterItems.forEach(item=> { %>
+                        <option value="<%= item._id %>">
+                            <%= item.name %>
+                        </option>
+                        <% }); %>
+                </select>
+            </label>
+        </div>
+        <div id="items">
+            <% for (let i=1; i <=6; i++) { %>
+                <label>
+                    Item <%= i %>:
+                        <select name="items" class="item-select" required>
+                            <option value="">Select an item</option>
+                            <% items.forEach(item=> { %>
+                                <option value="<%= item._id %>">
+                                    <%= item.name %>
+                                </option>
+                                <% }); %>
+                        </select>
+                </label>
+                <% } %>
+        </div>
+        <div class="runes">
+            <label>
+                Primary Rune:
+                <select name="primaryRunes" class="item-select" required>
+                    <option value="">Select a rune</option>
+                    <% primaryRunes.forEach(rune=> { %>
+                        <option value="<%= rune._id %>">
+                            <%= rune.name %>
+                        </option>
+                        <% }); %>
+                </select>
+            </label>
+            <label>
+                Secondary Rune:
+                <select name="secondaryRunes" class="item-select" required>
+                    <option value="">Select a rune</option>
+                    <% secondaryRunes.forEach(rune=> { %>
+                        <option value="<%= rune._id %>">
+                            <%= rune.name %>
+                        </option>
+                        <% }); %>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>
+                Summoner Spell 1:
+                <select name="summonerSpells">
+                    <% summonerSpells.forEach(summonerSpell=> { %>
+                        <option value="<%= summonerSpell._id %>">
+                            <%= summonerSpell.name %>
+                        </option>
+                        <% }) %>
+                </select>
+            </label>
+        </div>
+        <div>
+            <label>
+                Summoner Spell 2:
+                <select name="summonerSpells">
+                    <% summonerSpells.forEach(summonerSpell=> { %>
+                        <option value="<%= summonerSpell._id %>">
+                            <%= summonerSpell.name %>
+                        </option>
+                        <% }) %>
+                </select>
+            </label>
+        </div>
+        <div>
+        </div>
+        <button>Submit</button>
+    </form>
+
+
 </body>
+
 </html>

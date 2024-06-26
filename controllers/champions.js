@@ -29,11 +29,9 @@ router.get('/', async (req, res) => {
 //show champ page
 router.get('/:id', async (req, res) => {
     try{
-        const builds = await Builds.find({}).populate();
-        const champions = await Champions.findById(req.params.id);
+        const champions = await Champions.findById(req.params.id).populate('builds');
         res.render('champs/show.ejs', {
-            champions,
-            builds
+            champions
         })
     } catch (error) {
         console.log(error);
@@ -90,7 +88,10 @@ router.post('/:id', async (req, res) => {
         };
 
         req.body.owner = req.session.user._id;
-        await Builds.create(req.body);
+        const build = await Builds.create(req.body);
+        const champion = await Champions.findById(req.params.id);
+        champion.builds.push(build);
+        await champion.save();
     } catch (error) {
         console.log(error);
     } 

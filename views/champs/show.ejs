@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <a href="/champions">Back to Champion list</a>
     <div>
         <h1>
             <%= champions.name %>
@@ -21,7 +22,7 @@
     <div><a href="/champions/<%= champions._id %>/new">Create a build</a></div>
 
     <ul>
-        <% builds.forEach((build)=> { %>
+        <% champions.builds.forEach((build)=> { %>
             <li>
                <a href="/champions/<%= champions._id%>/<%=build._id%>"><%= build.name %></a> 
             </li>
