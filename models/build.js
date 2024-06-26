@@ -9,7 +9,8 @@ const buildSchema = new mongoose.Schema({
         ref: 'Champion'
     },
     role: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Role'
     }, 
     starterItem: {
         type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +31,6 @@ const buildSchema = new mongoose.Schema({
     summonerSpells: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SummonerSpell'
-        
     }],
     owner: {
         type: mongoose.Schema.Types.ObjectId,
@@ -38,7 +38,19 @@ const buildSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model('Build', buildSchema)
+const Build = mongoose.model('Build', buildSchema);
+module.exports = Build
+
+// const clearDB = async () => {
+//     try {
+//         await Build.deleteMany({});
+//         console.log('All documents in Champion have been deleted');
+//     } catch (error) {
+//         console.log('Error clearing Champion model:', error);
+//     }
+// };
+
+// clearDB();
 
 // const buildSchema = new mongoose.Schema({
 //     name: {

@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <h1>Create a build</h1>
-    <a href="/champions/<%= champions._id %>">Back</a>
-    <form action="/champions/<%= champions._id %>?_method=PUT" method="post">
+    <h1>Edit a build</h1>
+    <a href="/champions/<%= champions._id %>/<%= build._id%>">Back</a>
+    <form action="/champions/<%= champions._id %>/<%= build._id%>?_method=PUT" method="post">
         <label>
             Name:
             <input name="name" required>
@@ -19,19 +19,20 @@
         <div id="role">
             <label>
                 Role:
-                <select name="role">
-                    <option value="Top">Top</option>
-                    <option value="Jungle">Jungle</option>
-                    <option value="Middle">Middle</option>
-                    <option value="Bottom">Bottom</option>
-                    <option value="Support">Support</option>
+                <select name="roles" required>
+                    <option value="">Select a role</option>
+                    <% roles.forEach(role=> { %>
+                        <option value="<%= role._id %>">
+                            <%= role.name %>
+                        </option>
+                        <% }) %>
                 </select>
             </label>
         </div>
         <div class="starter-item">
             <label>
                 Starter item
-                <select name="starter-item">
+                <select name="starterItem" required>
                     <option value="">Select a starter item</option>
                     <% starterItems.forEach(item=> { %>
                         <option value="<%= item._id %>">
@@ -59,7 +60,7 @@
         <div class="runes">
             <label>
                 Primary Rune:
-                <select name="primaryRunes" class="item-select" required>
+                <select name="primaryRune" class="item-select" required>
                     <option value="">Select a rune</option>
                     <% primaryRunes.forEach(rune=> { %>
                         <option value="<%= rune._id %>">
@@ -70,7 +71,7 @@
             </label>
             <label>
                 Secondary Rune:
-                <select name="secondaryRunes" class="item-select" required>
+                <select name="secondaryRune" class="item-select" required>
                     <option value="">Select a rune</option>
                     <% secondaryRunes.forEach(rune=> { %>
                         <option value="<%= rune._id %>">
@@ -83,7 +84,7 @@
         <div>
             <label>
                 Summoner Spell 1:
-                <select name="summonerSpells">
+                <select name="summonerSpells1">
                     <% summonerSpells.forEach(summonerSpell=> { %>
                         <option value="<%= summonerSpell._id %>">
                             <%= summonerSpell.name %>
@@ -95,7 +96,7 @@
         <div>
             <label>
                 Summoner Spell 2:
-                <select name="summonerSpells">
+                <select name="summonerSpells2">
                     <% summonerSpells.forEach(summonerSpell=> { %>
                         <option value="<%= summonerSpell._id %>">
                             <%= summonerSpell.name %>

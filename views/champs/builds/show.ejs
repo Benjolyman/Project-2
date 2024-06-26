@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
 </head>
+
 <body>
-    <h1><%=build.name%></h1>
-    <h2>Role: <%=build.role%></h2>
-    <h3>Starter: <%=build.starterItem.name%></h3>
-    <% for (let i=0; i <6; i++) { %> 
-        <h3><%=build.items[i].name%></h3>    
-    <% } %>
-    <h3>Rune 1: <%= build.primaryRune.name %></h3>
-    <h3>Rune 2: <%= build.secondaryRune.name %></h3>
-    <% for (let i=0; i <2; i++) { %> 
-        <h3><%=build.summonerSpells[i].name%></h3>    
-    <% } %>
+    <h1>
+        <%=build.name%>
+    </h1>
+    <a href="/champions/<%= champions._id %>/<%= build._id %>/edit">Edit build</a>
+    <h2>Role: <%=build.role%>
+    </h2>
+    <h3>Starter: <%=build.starterItem.name%>
+    </h3>
+    <% for (let i=0; i <6; i++) { %>
+        <h3>
+            <%=build.items[i].name%>
+        </h3>
+        <% } %>
+            <h3>Rune 1: <%= build.primaryRune.name %>
+            </h3>
+            <h3>Rune 2: <%= build.secondaryRune.name %>
+            </h3>
+            <% for (let i=0; i <2; i++) { %>
+                <h3>
+                    <%=build.summonerSpells[i].name%>
+                </h3>
+                <% } %>
 </body>
+
 </html>

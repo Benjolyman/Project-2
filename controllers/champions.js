@@ -7,6 +7,7 @@ const PrimaryRune = require('../models/primary-rune');
 const SecondaryRune = require('../models/secondary-rune');
 const SummonerSpell = require('../models/summoner-spell');
 const StarterItem = require('../models/starter-item');
+const Role = require('../models/role')
 const morgan = require('morgan');
 
 router.use(morgan('dev'));
@@ -14,7 +15,7 @@ router.use(morgan('dev'));
 
 //show all champs
 router.get('/', async (req, res) => {
-    try{
+    try {
         const champions = await Champions.find({}).populate();
         res.render('champs/index.ejs', {
             champions
@@ -28,7 +29,7 @@ router.get('/', async (req, res) => {
 
 //show champ page
 router.get('/:id', async (req, res) => {
-    try{
+    try {
         const champions = await Champions.findById(req.params.id).populate('builds');
         res.render('champs/show.ejs', {
             champions
@@ -49,6 +50,7 @@ router.get('/:id/new', async (req, res) => {
         const secondaryRunes = await SecondaryRune.find({});
         const summonerSpells = await SummonerSpell.find({});
         const starterItems = await StarterItem.find({});
+        const roles = await Role.find({});
     
         res.render('champs/builds/new.ejs', {
             champions,
@@ -56,7 +58,8 @@ router.get('/:id/new', async (req, res) => {
             primaryRunes,
             secondaryRunes,
             summonerSpells,
-            starterItems
+            starterItems,
+            roles
         });
     } catch (error) {
         console.log(error);
@@ -67,7 +70,7 @@ router.get('/:id/new', async (req, res) => {
 
 //upload build
 router.post('/:id', async (req, res) => {
-    try{
+    try {
         const buildData = {
             name: req.body.name,
             champion: req.params.id,
@@ -92,17 +95,71 @@ router.post('/:id', async (req, res) => {
 
 //show build
 router.get('/:champid/:buildid', async (req, res) => {
-    try{
+    try {
+        const champions = await Champions.findById(req.params.champid);
         const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem','primaryRune','secondaryRune', 'summonerSpells']);
-        console.log(build.starterItem.name); // This will log the name of the starter item
+
+        console.log(build.starterItem.name); 
+
         res.render('champs/builds/show.ejs', {
-            build
+            build,
+            champions
         })
     } catch (error) {
         console.log(error);
         res.redirect(`/champions/${req.params.champid}`)
     }
 });
+
+//show edit page
+router.get('/:champid/:buildid/edit', async (req, res) => {
+    try {
+        const champions = await Champions.findById(req.params.champid);
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem','primaryRune','secondaryRune', 'summonerSpells']);
+        const items = await Item.find({});
+        const primaryRunes = await PrimaryRune.find({});
+        const secondaryRunes = await SecondaryRune.find({});
+        const summonerSpells = await SummonerSpell.find({});
+        const starterItems = await StarterItem.find({});
+        const roles = await Role.find({});
+        
+        res.render('champs/builds/edit.ejs', {
+            build,
+            champions,
+            items,
+            primaryRunes,
+            secondaryRunes,
+            summonerSpells,
+            starterItems,
+            roles
+        });
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/champions/${req.params.champid}`);
+    }
+});
+
+//upload edit
+
+router.put('/:champid/:buildid', async (req, res) => {
+    try {
+        const buildData = {
+            name: req.body.name,
+            role: req.body.role,
+            items: req.body.items,
+            primaryRune: req.body.primaryRune,
+            secondaryRune: req.body.secondaryRune,
+            summonerSpells: [req.body.summonerSpells1, req.body.summonerSpells2]
+        };
+
+        await Builds.findByIdAndUpdate(req.params.buildid, buildData);
+        res.redirect(`/champions/${req.params.champid}`);
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/champions/${req.params.champid}`);
+    }
+});
+
 
 
 
