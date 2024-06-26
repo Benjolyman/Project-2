@@ -5,20 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Champions</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
-
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            justify-content: center;
+        }
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <a href="/">Home</a>
     <h1>Champions</h1>
-    <ul>
+    <div class="list-group">
         <%champions.forEach(champion => { %>
-            <li>
-                <a href="/champions/<%= champion._id %>"><%= champion.name %></a>
-                <img src="<%= champion.imageUrl %>" width="50" height="50">            
-            </li>            
+            <a href="/champions/<%= champion._id %>" class="list-group-item list-group-item-action">
+                <img src="<%= champion.imageUrl %>" width="50" height="50">
+                <p><%= champion.name %></p>
+            </a>            
        <% }); %>
-    </ul>
+    </div>
 </body>
 </html>
-
-<!-- show all champs -->

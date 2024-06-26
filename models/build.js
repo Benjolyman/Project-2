@@ -44,9 +44,9 @@ module.exports = Build
 // const clearDB = async () => {
 //     try {
 //         await Build.deleteMany({});
-//         console.log('All documents in Champion have been deleted');
+//         console.log('All documents in Build have been deleted');
 //     } catch (error) {
-//         console.log('Error clearing Champion model:', error);
+//         console.log('Error clearing build model:', error);
 //     }
 // };
 

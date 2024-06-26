@@ -109,8 +109,9 @@
         </div>
         <button>Submit</button>
     </form>
-
-
+    <form action="/champions/<%= champions._id %>/<%= build._id%>?_method=DELETE" method="post">
+        <button>Delete Build</button> 
+    </form>
 </body>
 
 </html>

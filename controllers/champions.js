@@ -9,6 +9,7 @@ const SummonerSpell = require('../models/summoner-spell');
 const StarterItem = require('../models/starter-item');
 const Role = require('../models/role')
 const morgan = require('morgan');
+const Build = require('../models/build');
 
 router.use(morgan('dev'));
 
@@ -51,7 +52,7 @@ router.get('/:id/new', async (req, res) => {
         const summonerSpells = await SummonerSpell.find({});
         const starterItems = await StarterItem.find({});
         const roles = await Role.find({});
-    
+
         res.render('champs/builds/new.ejs', {
             champions,
             items,
@@ -71,6 +72,7 @@ router.get('/:id/new', async (req, res) => {
 //upload build
 router.post('/:id', async (req, res) => {
     try {
+        console.log(req.body)
         const buildData = {
             name: req.body.name,
             champion: req.params.id,
@@ -88,7 +90,7 @@ router.post('/:id', async (req, res) => {
         await champion.save();
     } catch (error) {
         console.log(error);
-    } 
+    }
     res.redirect(`/champions/${req.params.id}`)
 });
 
@@ -97,9 +99,9 @@ router.post('/:id', async (req, res) => {
 router.get('/:champid/:buildid', async (req, res) => {
     try {
         const champions = await Champions.findById(req.params.champid);
-        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem','primaryRune','secondaryRune', 'summonerSpells']);
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells']);
 
-        console.log(build.starterItem.name); 
+        console.log(build.starterItem.name);
 
         res.render('champs/builds/show.ejs', {
             build,
@@ -115,14 +117,14 @@ router.get('/:champid/:buildid', async (req, res) => {
 router.get('/:champid/:buildid/edit', async (req, res) => {
     try {
         const champions = await Champions.findById(req.params.champid);
-        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem','primaryRune','secondaryRune', 'summonerSpells']);
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells']);
         const items = await Item.find({});
         const primaryRunes = await PrimaryRune.find({});
         const secondaryRunes = await SecondaryRune.find({});
         const summonerSpells = await SummonerSpell.find({});
         const starterItems = await StarterItem.find({});
         const roles = await Role.find({});
-        
+
         res.render('champs/builds/edit.ejs', {
             build,
             champions,
@@ -159,6 +161,22 @@ router.put('/:champid/:buildid', async (req, res) => {
         res.redirect(`/champions/${req.params.champid}`);
     }
 });
+
+router.delete('/:champid/:buildid', async (req, res) => {
+    try {
+        const build = await Build.findById(req.params.buildid);
+        if (build.owner.equals(req.session.user._id)) {
+            await build.deleteOne();
+            console.log('build deleted')
+        }
+        res.redirect(`/champions/${req.params.champid}`)
+    } catch (error) {
+        console.log(error)
+        res.redirect('champions/');
+    }
+    
+});
+
 
 
 
