@@ -12,15 +12,18 @@
 </head>
 
 <body>
-    <h1>
-        <%= champions.name %>
-    </h1>
-    <a href="/champions/<%= champions.id %>/new">Create a build</a>
+    <div>
+        <h1>
+            <%= champions.name %>
+        </h1>
+        <img src="<%= champions.imageUrl %>" width="50" height="50">
+    </div>
+    <div><a href="/champions/<%= champions._id %>/new">Create a build</a></div>
 
     <ul>
         <% builds.forEach((build)=> { %>
             <li>
-                <%= build.name %>
+               <a href="/champions/<%= champions._id%>/<%=build._id%>"><%= build.name %></a> 
             </li>
             <% }) %>
     </ul>

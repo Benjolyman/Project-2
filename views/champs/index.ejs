@@ -13,7 +13,7 @@
         <%champions.forEach(champion => { %>
             <li>
                 <a href="/champions/<%= champion._id %>"><%= champion.name %></a>
-                <%= champion.role %>
+                <img src="<%= champion.imageUrl %>" width="50" height="50">            
             </li>            
        <% }); %>
     </ul>

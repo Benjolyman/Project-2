@@ -6,10 +6,13 @@ const Item = require('../models/item');
 const PrimaryRune = require('../models/primary-rune');
 const SecondaryRune = require('../models/secondary-rune');
 const SummonerSpell = require('../models/summoner-spell');
+const StarterItem = require('../models/starter-item');
 const morgan = require('morgan');
 
 router.use(morgan('dev'));
 
+
+//show all champs
 router.get('/', async (req, res) => {
     try{
         const champions = await Champions.find({}).populate();
@@ -22,6 +25,8 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+//show champ page
 router.get('/:id', async (req, res) => {
     try{
         const builds = await Builds.find({}).populate();
@@ -36,19 +41,24 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
+//new build
 router.get('/:id/new', async (req, res) => {
     try {
         const champions = await Champions.findById(req.params.id);
         const items = await Item.find({});
         const primaryRunes = await PrimaryRune.find({});
         const secondaryRunes = await SecondaryRune.find({});
-        const summonerSpells = await SummonerSpell.find({})
+        const summonerSpells = await SummonerSpell.find({});
+        const starterItems = await StarterItem.find({});
+    
         res.render('champs/builds/new.ejs', {
             champions,
             items,
             primaryRunes,
             secondaryRunes,
-            summonerSpells
+            summonerSpells,
+            starterItems
         });
     } catch (error) {
         console.log(error);
@@ -56,6 +66,17 @@ router.get('/:id/new', async (req, res) => {
     }
 });
 
+router.get('/:champid/:buildid', async (req, res) => {
+    
+    try{
+        res.render('champs/builds/show.ejs')
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/champions/${req.params.id}`)
+    }
+})
+
+//upload build
 router.post('/:id', async (req, res) => {
     try{
         const buildData = {
