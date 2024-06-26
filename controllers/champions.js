@@ -64,15 +64,6 @@ router.get('/:id/new', async (req, res) => {
     }
 });
 
-router.get('/:champid/:buildid', async (req, res) => {
-    
-    try{
-        res.render('champs/builds/show.ejs')
-    } catch (error) {
-        console.log(error);
-        res.redirect(`/champions/${req.params.id}`)
-    }
-})
 
 //upload build
 router.post('/:id', async (req, res) => {
@@ -97,5 +88,23 @@ router.post('/:id', async (req, res) => {
     } 
     res.redirect(`/champions/${req.params.id}`)
 });
+
+
+//show build
+router.get('/:champid/:buildid', async (req, res) => {
+    try{
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem','primaryRune','secondaryRune', 'summonerSpells']);
+        console.log(build.starterItem.name); // This will log the name of the starter item
+        res.render('champs/builds/show.ejs', {
+            build
+        })
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/champions/${req.params.champid}`)
+    }
+});
+
+
+
 
 module.exports = router;

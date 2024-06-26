@@ -31,7 +31,7 @@
         <div class="starter-item">
             <label>
                 Starter item
-                <select name="starter-item">
+                <select name="starterItem" required>
                     <option value="">Select a starter item</option>
                     <% starterItems.forEach(item=> { %>
                         <option value="<%= item._id %>">
@@ -59,7 +59,7 @@
         <div class="runes">
             <label>
                 Primary Rune:
-                <select name="primaryRunes" class="item-select" required>
+                <select name="primaryRune" class="item-select" required>
                     <option value="">Select a rune</option>
                     <% primaryRunes.forEach(rune=> { %>
                         <option value="<%= rune._id %>">
@@ -70,7 +70,7 @@
             </label>
             <label>
                 Secondary Rune:
-                <select name="secondaryRunes" class="item-select" required>
+                <select name="secondaryRune" class="item-select" required>
                     <option value="">Select a rune</option>
                     <% secondaryRunes.forEach(rune=> { %>
                         <option value="<%= rune._id %>">
