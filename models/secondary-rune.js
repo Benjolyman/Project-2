@@ -5,6 +5,10 @@ const runeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tree: {
+    type: String,
+    required: true,
+  },
   imageUrl: {
     type: String,
   },
@@ -16,11 +20,30 @@ const SecondaryRune = mongoose.model('SecondaryRune', runeSchema);
 module.exports = SecondaryRune;
 
 
-// let runeTreeNames = ["Precision", "Domination", "Sorcery", "Resolve", "Inspiration"];
+let runeTreeNames = [
+  { name: "Precision", tree: "Precision" },
+  { name: "Domination", tree: "Domination" },
+  { name: "Sorcery", tree: "Sorcery" },
+  { name: "Resolve", tree: "Resolve" },
+  { name: "Inspiration", tree: "Inspiration" }
+];
 
-// let runeInsert = runeTreeNames.map(rune => ({ name: rune, imageUrl: "" }));
 
-// secondaryRunes.insertMany(runeInsert)
+// const clearDB = async () => {
+//   try {
+//       await runeTreeNames.deleteMany({});
+//       console.log('All documents in Build have been deleted');
+//   } catch (error) {
+//       console.log('Error clearing build model:', error);
+//   }
+// };
+
+// clearDB();
+
+
+// let runeInsert = runeTreeNames.map(rune => ({ name: rune.name, tree: rune.tree, imageUrl: "" }));
+
+// SecondaryRune.insertMany(runeInsert)
 //   .then(function (docs) {
 //       console.log('Items have been successfully stored.', docs);
 //   })

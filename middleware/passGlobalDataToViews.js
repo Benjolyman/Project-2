@@ -1,6 +1,6 @@
 const passGlobalDataToViews = (req, res, next) => {
     res.locals.user = req.session.user || null;
-    res.locals.title = 'League DB'
+    res.locals.title = 'Summoner DB'
     next();
 };
 

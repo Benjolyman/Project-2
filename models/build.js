@@ -41,14 +41,14 @@ const buildSchema = new mongoose.Schema({
 const Build = mongoose.model('Build', buildSchema);
 module.exports = Build
 
-// const clearDB = async () => {
-//     try {
-//         await Build.deleteMany({});
-//         console.log('All documents in Build have been deleted');
-//     } catch (error) {
-//         console.log('Error clearing build model:', error);
-//     }
-// };
+const clearDB = async () => {
+    try {
+        await Build.deleteMany({});
+        console.log('All documents in Build have been deleted');
+    } catch (error) {
+        console.log('Error clearing build model:', error);
+    }
+};
 
 // clearDB();
 

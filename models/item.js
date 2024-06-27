@@ -20,14 +20,7 @@ module.exports = Item;
 
 
 let bootsItems = [
-    { name: "Berserker's Greaves", id: 3006 },
-    { name: "Boots of Mobility", id: 3117 },
-    { name: "Boots of Swiftness", id: 3009 },
-    { name: "Ionian Boots of Lucidity", id: 3158 },
-    { name: "Mercury's Treads", id: 3111 },
-    { name: "Plated Steelcaps", id: 3047 },
-    { name: "Sorcerer's Shoes", id: 3020 },
-    { name: "Boots", id: 2422 }
+    
 ];
 
 let legendaryItems = [
@@ -115,10 +108,18 @@ let legendaryItems = [
     { name: "Wit's End", id: 3091 },
     { name: "Youmuu's Ghostblade", id: 3142 },
     { name: "Zeke's Convergence", id: 3050 },
-    { name: "Zhonya's Hourglass", id: 3157 }
+    { name: "Zhonya's Hourglass", id: 3157 },
+    { name: "Berserker's Greaves", id: 3006 },
+    { name: "Boots of Mobility", id: 3117 },
+    { name: "Boots of Swiftness", id: 3009 },
+    { name: "Ionian Boots of Lucidity", id: 3158 },
+    { name: "Mercury's Treads", id: 3111 },
+    { name: "Plated Steelcaps", id: 3047 },
+    { name: "Sorcerer's Shoes", id: 3020 },
+    { name: "Boots", id: 2422 }
 ];
 
-// let legendaryitemInsert = legendaryItems.map(item => ({ name: item.name, id: item.id , imageUrl: "" }));
+let legendaryitemInsert = legendaryItems.map(item => ({ name: item.name, id: item.id , imageUrl: `${item.id}.png` }));
 
 // Item.insertMany(legendaryitemInsert)
 //     .then(function (docs) {
@@ -128,15 +129,7 @@ let legendaryItems = [
 //         console.log('Error occurred while storing items.', err);
 //     });
 
-// let bootsInsert = bootsItems.map(item => ({ name: item.name, id: item.id , imageUrl: "" }));
 
-// Item.insertMany(bootsInsert)
-//     .then(function (docs) {
-//         console.log('Items have been successfully stored.', docs);
-//     })
-//     .catch(function (err) {
-//         console.log('Error occurred while storing items.', err);
-//     });
 
 
 // const itemSchema = new mongoose.Schema({

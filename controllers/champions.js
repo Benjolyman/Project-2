@@ -51,7 +51,7 @@ router.get('/:id/new', async (req, res) => {
         const secondaryRunes = await SecondaryRune.find({});
         const summonerSpells = await SummonerSpell.find({});
         const starterItems = await StarterItem.find({});
-        const roles = await Role.find({});
+        const role = await Role.find({});
 
         res.render('champs/builds/new.ejs', {
             champions,
@@ -60,7 +60,7 @@ router.get('/:id/new', async (req, res) => {
             secondaryRunes,
             summonerSpells,
             starterItems,
-            roles
+            role
         });
     } catch (error) {
         console.log(error);
@@ -72,21 +72,27 @@ router.get('/:id/new', async (req, res) => {
 //upload build
 router.post('/:id', async (req, res) => {
     try {
-        console.log(req.body)
+        console.log(req.body.role)
         const buildData = {
             name: req.body.name,
             champion: req.params.id,
-            role: req.body.role,
+            role: req.body.roles,
             items: req.body.items,
             primaryRune: req.body.primaryRune,
             secondaryRune: req.body.secondaryRune,
-            summonerSpells: [req.body.summonerSpells1, req.body.summonerSpells2]
+            summonerSpells: req.body.summonerSpells
         };
+
+        const itemsSet = new Set(buildData.items);
+        if (itemsSet.size !== buildData.items.length) {
+            throw new Error('Cannot select the same item multiple times.');
+        }
 
         req.body.owner = req.session.user._id;
         const build = await Builds.create(req.body);
         const champion = await Champions.findById(req.params.id);
         champion.builds.push(build);
+        console.log(build)
         await champion.save();
     } catch (error) {
         console.log(error);
@@ -99,9 +105,8 @@ router.post('/:id', async (req, res) => {
 router.get('/:champid/:buildid', async (req, res) => {
     try {
         const champions = await Champions.findById(req.params.champid);
-        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells']);
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells', 'owner', 'role']);
 
-        console.log(build.starterItem.name);
 
         res.render('champs/builds/show.ejs', {
             build,
@@ -113,11 +118,12 @@ router.get('/:champid/:buildid', async (req, res) => {
     }
 });
 
+
 //show edit page
 router.get('/:champid/:buildid/edit', async (req, res) => {
     try {
         const champions = await Champions.findById(req.params.champid);
-        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells']);
+        const build = await Builds.findById(req.params.buildid).populate(['items', 'starterItem', 'primaryRune', 'secondaryRune', 'summonerSpells', 'role']);
         const items = await Item.find({});
         const primaryRunes = await PrimaryRune.find({});
         const secondaryRunes = await SecondaryRune.find({});
@@ -151,7 +157,7 @@ router.put('/:champid/:buildid', async (req, res) => {
             items: req.body.items,
             primaryRune: req.body.primaryRune,
             secondaryRune: req.body.secondaryRune,
-            summonerSpells: [req.body.summonerSpells1, req.body.summonerSpells2]
+            summonerSpells: req.body.summonerSpells
         };
 
         await Builds.findByIdAndUpdate(req.params.buildid, buildData);
