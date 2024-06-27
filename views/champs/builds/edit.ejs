@@ -36,11 +36,11 @@
         <div class="form-container">
             <form action="/champions/<%= champions._id %>/<%= build._id %>?_method=PUT" method="post">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Name:</label>
+                    <label class="form-label">Name:</label>
                     <input id="name" name="name" class="form-control" required>
                 </div>
                 <div class="mb-3">
-                    <label for="role" class="form-label">Role:</label>
+                    <label class="form-label">Role:</label>
                     <select id="role" name="roles" class="form-select" required>
                         <option value="">Select a role</option>
                         <% roles.forEach(role=> { %>
@@ -51,7 +51,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="starterItem" class="form-label">Starter item:</label>
+                    <label class="form-label">Starter item:</label>
                     <select id="starterItem" name="starterItem" class="form-select" required>
                         <option value="">Select a starter item</option>
                         <% starterItems.forEach(item=> { %>
@@ -64,7 +64,7 @@
                 <div id="items" class="mb-3">
                     <% for (let i=1; i <=6; i++) { %>
                     <div class="mb-3">
-                        <label for="item<%= i %>" class="form-label">Item <%= i %>:</label>
+                        <label class="form-label">Item <%= i %>:</label>
                         <select id="item<%= i %>" name="items" class="form-select item-select" required>
                             <option value="">Select an item</option>
                             <% items.forEach(item=> { %>
@@ -77,7 +77,7 @@
                     <% } %>
                 </div>
                 <div class="mb-3">
-                    <label for="primaryRune" class="form-label">Primary Rune:</label>
+                    <label class="form-label">Primary Rune:</label>
                     <select id="primaryRune" name="primaryRune" class="form-select item-select" required>
                         <option value="">Select a rune</option>
                         <% primaryRunes.forEach(rune=> { %>
@@ -88,7 +88,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="secondaryRune" class="form-label">Secondary Rune:</label>
+                    <label class="form-label">Secondary Rune:</label>
                     <select id="secondaryRune" name="secondaryRune" class="form-select item-select" required>
                         <option value="">Select a rune</option>
                         <% secondaryRunes.forEach(rune=> { %>
@@ -101,7 +101,7 @@
                 <div class="mb-3">
                     <% for (let i=0; i < 2; i++) { %>
                     <div class="mb-3">
-                        <label for="summonerSpell<%= i %>" class="form-label">Summoner Spell <%= i + 1 %>:</label>
+                        <label class="form-label">Summoner Spell <%= i + 1 %>:</label>
                         <select id="summonerSpell<%= i %>" name="summonerSpells" class="form-select" required>
                             <option value="">Select a Summoner Spell</option>
                             <% summonerSpells.forEach(summs=> { %>
