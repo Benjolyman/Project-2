@@ -168,6 +168,7 @@ router.put('/:champid/:buildid', async (req, res) => {
     }
 });
 
+//delete build
 router.delete('/:champid/:buildid', async (req, res) => {
     try {
         const build = await Build.findById(req.params.buildid);
@@ -182,10 +183,5 @@ router.delete('/:champid/:buildid', async (req, res) => {
     }
     
 });
-
-
-
-
-
 
 module.exports = router;
